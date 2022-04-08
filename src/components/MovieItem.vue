@@ -1,8 +1,16 @@
 <template>
-  <div class="movieItem">
-    {<p class="movieTitle">{{movie.Title}}</p>
-    <img :src=movie.Poster alt="" class="moviePoster">
-    <p class="movieYear">{{movie.Year}}</p>}
+  <div 
+    class="movie"
+    :style="{backgroundImage:`url(${movie.Poster})`}"
+  >
+    <div class="info">
+      <div class="year">
+        {{movie.Year}}
+      </div>
+      <div class="title">
+        {{movie.Title}}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -20,23 +28,45 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .movieItem {
-    width: 300px;
-    position: relative;
-    text-align: center;
-    margin: 40px 0;
-    border-radius: 5%;
+@import "~/scss/main";
+  .movie {
+    $width:200px;
+    width: $width;
+    height: calc($width * 3 / 2);
+    background-size: cover;
+    margin: 10px;
+    border-radius: 4px;
+    background-color: $gray-400;
     overflow: hidden;
-    .movieTitle {
+    position: relative;
+    &:hover::after {
+      border: 6px solid $primary;
+      content: "";
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
       position: absolute;
-      bottom: 30px;
     }
-    img{
-
-    }
-    .movieYear {
+    .info {
       position: absolute;
-      bottom: 20px;
+      left: 0;
+      bottom: 0;
+      background-color: rgba($black,.3);
+      width: 100%;
+      padding: 14px;
+      font-size: 14px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      .year {
+        color: $primary;
+      }
+      .title {
+        color:$white;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 </style>

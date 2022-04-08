@@ -166,3 +166,33 @@ $ npm i lodash
   _uniqBy(배열,'속성 이름')
   _uniqBy(Search,'imdbID')
 ```
+### fetchMovies 
+searchmovie 뿐만 아니라 다른곳에서도 사용하기 위해
+fetchmovie라는 함수를 따로 만들어 활용성을 높인다
+```js
+function fetchMovies(payload){
+  const {title,type,year,page} = payload
+  const OMDIB_API_KEY = 'API_KEY'
+  const url = `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
+  // 비동기 처리
+  return new Promise((resolve,reject)=>{ //resolve 이행 , reject 거부
+    aixos.get(url)
+      .then((res)=>{
+        resolve(res)
+      })
+      .catch((error)=>{
+        reject(error)
+      })
+  })
+  // async await 코드
+  return new Promise(async (resolve,reject)=>{ // *주의* async는 await의 함수부분에 작성
+    try {
+      const res = await axios.get(url)
+      resolve(resolve)
+    }
+    catch(err){
+      reject(err)
+    }
+  })
+}
+```
