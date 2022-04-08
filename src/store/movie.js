@@ -58,7 +58,6 @@ export default {
               movies: [...state.movies, ..._uniqBy(Search,'imdbID')]
             })
           }
-          
         }
       }
       catch(message){

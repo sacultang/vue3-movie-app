@@ -5,7 +5,7 @@ const CopyPlugin = require('copy-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 // export
 module.exports = {
-  resolve: {
+  resolve: { // 경로에서 확장자를 따로 명시 하지 않아도 됨
     extensions:['.js','.vue'],
     //경로 별칭
     alias: { 
