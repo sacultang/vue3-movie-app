@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     movies() {
-      return this.$store.state.movie.movies
+      return this.$store.state.movie.movies // $store.상태.movie모듈.movies데이터
     }
   }
 }

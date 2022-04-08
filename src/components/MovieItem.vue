@@ -1,8 +1,8 @@
 <template>
   <div class="movieItem">
-    <p class="movieTitle">{{movie.Title}}</p>
+    {<p class="movieTitle">{{movie.Title}}</p>
     <img :src=movie.Poster alt="" class="moviePoster">
-    <p class="movieYear">{{movie.Year}}</p>
+    <p class="movieYear">{{movie.Year}}</p>}
   </div>
 </template>
 
@@ -30,6 +30,9 @@ export default {
     .movieTitle {
       position: absolute;
       bottom: 30px;
+    }
+    img{
+
     }
     .movieYear {
       position: absolute;

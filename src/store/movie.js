@@ -1,14 +1,15 @@
 import axios from 'axios'
+import _uniqBy from 'lodash/uniqBy'
 export default {
   namespaced:true, // module!
-  state:()=>{
+  state:()=>{ // 취급해야 될 실제 데이터
     return {
       movies: [],
       message:'',
       loading:false
     }
   }
-  , // 취급해야 될 실제 데이터
+  , 
   getters:{}, // computed 계산된 데이터
   mutations:{ // methods! 변이
     resetMovies(state){
@@ -28,10 +29,10 @@ export default {
       const res = await axios.get(`http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=1`)
       const {Search, totalResults} = res.data
       commit('updateState', {
-        movies:Search
+        movies:_uniqBy(Search,'imdbID')
       })
-      console.log(totalResults) // 560
-      console.log(typeof totalResults) // renderToString
+      // console.log(totalResults) // 560
+      // console.log(typeof totalResults) // renderToString
       const total = parseInt(totalResults,10)
       const pageLength = Math.ceil(total / 10)
 
@@ -42,7 +43,7 @@ export default {
           const res = await axios.get(`http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`)
           const {Search} = res.data
           commit('updateState',{
-            movies: [...state.movies, ...Search]
+            movies: [...state.movies, ..._uniqBy(Search,'imdbID')]
           })
         }
       }

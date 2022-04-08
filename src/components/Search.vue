@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+
 export default {
   data(){
     return {
@@ -53,10 +53,13 @@ export default {
     //     year:this.year
     //   })
     // }
-    async apply(){
-      const OMDB_API_KEY = 'f6573a61'
-      const movies = await axios.get(`http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${this.title}&type=${this.type}&y=${this.year}&page=1`)
-      console.log(movies)
+    apply(){
+      this.$store.dispatch('movie/searchMovies',{
+        title:this.title,
+        type:this.type,
+        number:this.number,
+        year:this.year
+      })
     }
   }
 }
