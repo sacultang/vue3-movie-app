@@ -13,7 +13,7 @@ export default createRouter({
       component:Home
     },
     {
-      path:'/movie',
+      path:'/movie/:id', // /:매개변수 = 동적으로 변경될수 있는 주소
       component:Movie
     },
     {
