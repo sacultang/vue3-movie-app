@@ -238,3 +238,43 @@ async searchMovieWithID ({commit,state}, 전달받은 영화 ID){
       }
     }
 ```
+
+### plugin 등록
+[플러그인이름].js 생성  
+src/main.js에 use로 연결  
+\$[플러그인이름]으로 사용할 수 있다
+```js
+src/main.js
+
+import loadImage from './plugins/loadImage'
+
+createApp(App)
+  .use(router) // $route, $router
+  .use(store) // $store
+  .use(loadImage) // $loadImage
+  .mount('#app')
+```
+플러그인 생성  
+install()메소드를 이용하여 생성
+config.globalProperties에 전역 메소드를 연결
+
+```js
+plugins/loadImage.js
+export default {
+  install(app){
+    app.config.globalProperties.$loadImage = key => {
+      return 로직
+    }
+  }
+}
+```
+
+this.$loadImage 로 사용 할수있다
+```js
+methods :{
+    async init(){
+      await this.$loadImage(this.movie.Poster)
+      this.imageLoading = false
+    }
+  }
+```
