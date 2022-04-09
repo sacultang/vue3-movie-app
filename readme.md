@@ -196,3 +196,20 @@ function fetchMovies(payload){
   })
 }
 ```
+### $route/params
+매개변수로 받는 특정한 주소로 이동
+```js
+{
+  path:'/movie/:이름', // /:매개변수 = 동적으로 변경될수 있는 주소 
+  component:Movie
+}
+```
+```js
+created(){
+    // console.log(this.$route)
+    this.$store.dispatch('movie/searchMovieWithID',{
+      id:this.$route.params.id
+    })
+  }
+// searchMovieWithID를 실행할때 params로 받은 id를 payload로 넣는다
+```
