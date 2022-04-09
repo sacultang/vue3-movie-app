@@ -213,3 +213,28 @@ created(){
   }
 // searchMovieWithID를 실행할때 params로 받은 id를 payload로 넣는다
 ```
+```js 
+단일 영화 검색
+async searchMovieWithID ({commit,state}, 전달받은 영화 ID){
+      if(state.loading) return // loading이 트루면 return하여 함수를 종료
+      commit('updateState',{
+        theMovie:{}, // 페이지 이동시 데이터가 남아 있을수 있기때문에 객체를 비워줌
+        loading:true
+      })
+      try {
+        const res = await _fetchMovie(payload) // fetchmovie 실행시 ID를 전달하여 res에 저장
+        commit('updateState',{
+          theMovie : res.data 
+        })
+        console.log(res.data)
+      }catch(error){
+        commit('updateState',{
+          theMovie:{} // Error시 객체를 비워줌
+        })
+      } finally{
+        commit('updateState',{
+          loading:false // 함수가 실행,실패와 관계없이 작동 
+        })
+      }
+    }
+```
