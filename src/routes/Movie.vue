@@ -80,6 +80,10 @@ export default {
   },
   methods :{
     requestdiffSizeImage(url,size = 700){
+      if(!url || url === 'N/A'){
+        this.imageLoading = false
+        return ''
+      }
       // return url.replace('SX300',`SX${size}`)
       const src = url.replace('SX300',`SX${size}`)
       this.$loadImage(src)

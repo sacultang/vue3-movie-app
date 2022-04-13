@@ -7,6 +7,7 @@
           :to="nav.href"
           class="nav-link"
           active-class="active"
+          :class="{active: isMatch(nav.path)}"
         >
           {{nav.name}}
         </router-link>
@@ -30,13 +31,22 @@ export default {
         },
         {
           name:'Movie',
-          href:'/movie/tt0110357'
+          href:'/movie/tt0110357',
+          path:/^\/movie/ // '/movie'로 시작하는 일치
+
         },
         {
           name:'About',
           href:'/about'
         }
       ]
+    }
+  },
+  methods:{
+    isMatch(path){
+      if(!path) return false
+      console.log(this.$route)
+      return path.test(this.$route.fullPath)
     }
   }
 }
