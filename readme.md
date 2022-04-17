@@ -365,7 +365,7 @@ computed:{
     ...mapState('모듈',[ // 전개 연산자 중요
       'image',
       'name',
-      'email
+      'email'
     ])
 }
 ```

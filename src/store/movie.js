@@ -84,7 +84,7 @@ export default {
         commit('updateState',{
           theMovie : res.data
         })
-        console.log(res.data)
+        // console.log(res.data)
       }catch(error){
         commit('updateState',{
           theMovie:{}

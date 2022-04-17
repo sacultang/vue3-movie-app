@@ -55,12 +55,14 @@
 </template>
 <script>
 import Loader from '~/components/Loader'
+import { mapState,mapActions } from 'vuex'
 export default {
   components:{
     Loader
   },
   created(){
     // console.log(this.$route)
+    // this.searchMovieWithId({ 
     this.$store.dispatch('movie/searchMovieWithID',{
       id:this.$route.params.id
     })
@@ -71,14 +73,26 @@ export default {
     }
   },
   computed:{
-    loading(){
-      return this.$store.state.movie.loading
-    },
-    theMovie(){
-      return this.$store.state.movie.theMovie
-    }
+    ...mapState('movie',[
+      'loading',
+      'theMovie'
+    ])
+    // loading(){
+    //   return this.$store.state.movie.loading
+    // },
+    // theMovie(){
+    //   return this.$store.state.movie.theMovie
+    // }
   },
   methods :{
+    // ...mapActions('movie',[
+    //   'searchMovieWithId'
+    // ]),
+    // searchMovieWithId(){
+    //   this.$store.dispatch('movie/searchMovieWithID',{
+    //     id:this.$route.params.id
+    //   })
+    // },
     requestdiffSizeImage(url,size = 700){
       if(!url || url === 'N/A'){
         this.imageLoading = false

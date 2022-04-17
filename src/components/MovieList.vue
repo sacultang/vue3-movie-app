@@ -13,21 +13,27 @@
 <script>
 import MovieItem from '~/components/MovieItem'
 import Loader from '~/components/Loader'
+import { mapState } from 'vuex'
 export default {
   components: {
     MovieItem,
     Loader
   },
   computed: {
-    movies() {
-      return this.$store.state.movie.movies // $store.상태.movie모듈.movies데이터
-    },
-    message(){
-      return this.$store.state.movie.message
-    },
-    loading(){
-      return this.$store.state.movie.loading
-    }
+    ...mapState('movie',[
+      'movies',
+      'message',
+      'loading'
+    ])
+    // movies() {
+    //   return this.$store.state.movie.movies // $store.상태.movie모듈.movies데이터
+    // },
+    // message(){
+    //   return this.$store.state.movie.message
+    // },
+    // loading(){
+    //   return this.$store.state.movie.loading
+    // }
   }
 }
 </script>
