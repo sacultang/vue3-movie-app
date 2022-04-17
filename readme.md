@@ -2,6 +2,9 @@
 
 ## vue-router
 사이트에서 페이지를 구분하기 위한 기술
+```bash
+$ npm install vue-router@4
+```
 ```js
 main.js 에 작성
 

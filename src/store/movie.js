@@ -1,11 +1,13 @@
 import axios from 'axios'
 import _uniqBy from 'lodash/uniqBy'
+
+const _defaultMessage = "Search for the movie Title!"
 export default {
   namespaced:true, // module!
   state:()=>{ // 취급해야 될 실제 데이터
     return {
       movies: [],
-      message:'Search for the Movie Title!',
+      message: _defaultMessage,
       loading:false,
       theMovie:{}
     }
@@ -15,6 +17,8 @@ export default {
   mutations:{ // methods! 변이
     resetMovies(state){
       state.movies = []
+      state.message = _defaultMessage
+      state.loading = false
     },
     updateState(state, payload){
       // ['movies','message','loading']

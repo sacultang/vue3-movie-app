@@ -14,8 +14,10 @@
     components:{
       Headline,
       Search,
-      MovieList,
-      
+      MovieList
+    },
+    create(){
+      this.$store.commit('movie/resetMovies')
     }
   }
 </script>
