@@ -341,3 +341,31 @@ methods :{
         ]
       }
 ```
+
+## Vuex Helpers
+store에 등록되어있는 데이터를 간소화 해서 호출해주는 vuex에서 제공하는 기능
+https://vuex.vuejs.org/guide/state.html
+
+### mapState
+```js
+import { mapState } from 'vuex'
+
+computed:{
+    // image(){
+    //   return this.$store.state.about.image
+    // },
+    // name(){
+    //   return this.$store.state.about.name
+    // },
+    // email(){
+    //   return this.$store.state.about.email
+    // },
+    반복되는 코드를 정리해 줄 수 있음
+
+    ...mapState('모듈',[ // 전개 연산자 중요
+      'image',
+      'name',
+      'email
+    ])
+}
+```
