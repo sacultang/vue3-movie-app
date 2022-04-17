@@ -343,7 +343,7 @@ methods :{
 ```
 
 ## Vuex Helpers
-store에 등록되어있는 데이터를 간소화 해서 호출해주는 vuex에서 제공하는 기능
+store에 등록되어있는 데이터를 간소화 해서 호출해주는 vuex에서 제공하는 기능  
 https://vuex.vuejs.org/guide/state.html
 
 ### mapState
