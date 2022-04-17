@@ -292,7 +292,7 @@ methods :{
       // 정규표현식(RegExp) 
       // . 임의의 한 문자와 일치 
       // * 와일드 카드
-      component:NotFound
+      component:NotFound // NotFound 컴포넌트로 보여줌
     }
   ]
 ```
