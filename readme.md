@@ -1,6 +1,6 @@
 # VUE3 OMDB MOVIE
 
-### vue-router
+## vue-router
 사이트에서 페이지를 구분하기 위한 기술
 ```js
 main.js 에 작성
@@ -35,7 +35,7 @@ routes/index.js 에 작성
     ]
   })
 ```
-### filters 
+## filters 
 년도 구하기
 ```js
   //즉시 실행 함수
@@ -61,7 +61,7 @@ v-for
   <option v-for="item in filter.items">{{item}}</option>
 </select>
 ```
-### axios 
+## axios 
 http 요청
 ```
 $ npm i axios
@@ -75,7 +75,7 @@ methods: {
   }
 }
 ```
-### vuex(store)
+## vuex(store)
 상태관리 라이브러리
 
 ```
@@ -154,7 +154,7 @@ export default {
   Object.keys() 객체데이터의 이름을 받아 새로운 배열로 만들어줌
 ```
 
-### lodash _uniqBy
+## lodash _uniqBy
 중복 아이디 제거
 
 ```
@@ -166,7 +166,7 @@ $ npm i lodash
   _uniqBy(배열,'속성 이름')
   _uniqBy(Search,'imdbID')
 ```
-### fetchMovies 
+## fetchMovies 
 searchmovie 뿐만 아니라 다른곳에서도 사용하기 위해
 fetchmovie라는 함수를 따로 만들어 활용성을 높인다
 ```js
@@ -196,7 +196,7 @@ function fetchMovies(payload){
   })
 }
 ```
-### $route/params
+## $route/params
 매개변수로 받는 특정한 주소로 이동
 ```js
 {
@@ -239,7 +239,7 @@ async searchMovieWithID ({commit,state}, 전달받은 영화 ID){
     }
 ```
 
-### plugin 등록
+## plugin 등록
 [플러그인이름].js 생성  
 src/main.js에 use로 연결  
 \$[플러그인이름]으로 사용할 수 있다
@@ -277,4 +277,22 @@ methods :{
       this.imageLoading = false
     }
   }
+```
+
+## Page Not Found
+잘못된 주소로 접근하였을 경우 router를 통해 page not found 페이지를 출력할 수 있다
+
+1. routes 폴더에 NotFound.vue 파일 생성
+2. routes/index.js 에 라우트 등록
+
+```js
+  routes :[
+    {
+      path:'/:notFound(.*)', // /:[파라미터이름 바꿔도됨](.*) 
+      // 정규표현식(RegExp) 
+      // . 임의의 한 문자와 일치 
+      // * 와일드 카드
+      component:NotFound
+    }
+  ]
 ```

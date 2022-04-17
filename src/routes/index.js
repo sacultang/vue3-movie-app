@@ -2,6 +2,7 @@ import { createRouter , createWebHashHistory } from "vue-router";
 import Home from './Home'
 import About from './About'
 import Movie from './Movie'
+import NotFound from './NotFound'
 
 export default createRouter({
   // Hash https://google.com/#/search 특정페이지에서 새로고침했을때 페이지찾을수 없다는 메시지 방지 할수 있다
@@ -19,6 +20,10 @@ export default createRouter({
     {
       path:'/about',
       component:About
+    },
+    {
+      path:'/:notFound(.*)',
+      component:NotFound
     }
   ]
 })
