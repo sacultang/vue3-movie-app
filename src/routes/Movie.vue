@@ -97,7 +97,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "~/scss/main.scss";
+ 
   .container{
     padding-top: 40px;
     
@@ -195,6 +195,39 @@ export default {
         color: $black;
         font-family: 'Oswald',sans-serif;
         font-size: 20px;
+      }
+    }
+    @include media-breakpoint-down(xl) {
+      .poster {
+        width: 400px;
+        height: 400px * 3 / 2;
+        margin-right: 40px;
+      }
+    }
+    @include media-breakpoint-down(lg){
+      display: block;
+      .poster {
+        margin: auto;
+        margin-bottom: 40px;
+      }
+    }
+    @include media-breakpoint-down(md){
+      .specs {
+        text-align: center;
+        .title {
+          font-size: 50px;
+        }
+        .ratings {
+          .rating-wrap {
+            justify-content: space-between;
+            margin: 0 20px;
+            .rating{
+              margin-top: 10px;
+              justify-content: center;
+              margin-right: 0;
+            }
+          }
+        }
       }
     }
   }

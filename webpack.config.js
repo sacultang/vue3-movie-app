@@ -40,7 +40,12 @@ module.exports = {
           // 'style-loader', // 순서 4.해석된 내용을 html에 삽입해주는 역할 
           'css-loader', // 순서 3.자바스크립트에서 css를 해석하기 위한 패키지
           'postcss-loader', //순서 2
-          'sass-loader' // 순서 1. sass loader
+          {
+            loader:'sass-loader', // 순서 1. sass loader
+            options:{
+              additionalData: '@import "~/scss/main";'
+            }
+          }
         ]
       },
       {

@@ -2,7 +2,7 @@
   <router-link to="/" class="logo"><span>OMDbAPI</span>.COM</router-link>
 </template>
 <style lang="scss" scoped>
-@import "~/scss/main";
+ 
   .logo {
     font-weight: 500;
     font-family: "Oswald", sans-serif;

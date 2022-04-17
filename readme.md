@@ -280,7 +280,7 @@ methods :{
 ```
 
 ## Page Not Found
-잘못된 주소로 접근하였을 경우 router를 통해 page not found 페이지를 출력할 수 있다
+잘못된 주소로 접근하였을 경우 router를 통해 not found(component) 페이지를 출력할 수 있다
 
 1. routes 폴더에 NotFound.vue 파일 생성
 2. routes/index.js 에 라우트 등록
@@ -295,4 +295,49 @@ methods :{
       component:NotFound // NotFound 컴포넌트로 보여줌
     }
   ]
+```
+
+## 모든 컴포넌트에서 전역 스타일 가져오기
+컴포넌트마다 @import 해줄필요 없도록 webpack.config.js에 작성해준다
+```js
+
+  기존 코드
+  module: {
+    rules:[
+      {
+        test:/\.vue$/,
+        use: 'vue-loader'
+      },
+      {
+        test:/\.s?css$/, 
+        use:[ 
+          'vue-style-loader', 
+          'css-loader', 
+          'postcss-loader',
+          'sass-loader'
+        ]
+      }
+```
+```js
+  수정 코드 // sass-loader를 객체로 바꾼 후 options를 추가 해준다.
+  module: {
+    rules:[
+      {
+        test:/\.vue$/,
+        use: 'vue-loader'
+      },
+      {
+        test:/\.s?css$/, 
+        use:[ 
+          'vue-style-loader', 
+          'css-loader', 
+          'postcss-loader',
+          {
+            loader:'sass-loader', // 순서 1. sass loader
+            options:{
+              additionalData: '@import "~/scss/main";'
+            }
+          }
+        ]
+      }
 ```
