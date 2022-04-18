@@ -372,3 +372,35 @@ computed:{
     ])
 }
 ```
+## Scroll Behavior 
+routes/index.js 에 작성 해준다
+페이지 이동시 스크롤값 초기화
+```js
+export default createRouter({
+  
+  // 작성부분
+  scrollBehavior(){
+    return {top:0}
+  }
+})
+```
+## Vue Router 정리
+https://router.vuejs.org/api/
+### \<RouterView>
+페이지가 출력되는 영역 컴포넌트
+### \<RouterLink>
+html의 a태그와 같다
+### $route
+Route(페이지) 정보를 가지는 객체
+- ex) fullPath, params
+### $router
+Route(페이지) 조작을 위한 객체
+
+### 도메인
+https://google.com/blog/123?apikey=abcd0987&name=HEROPY
+
+fullPath 부분 =  /blog/123?apikey=abcd0987&name=HEROPY 
+
+fullPath의 parmas = /blog/123
+
+fullPath의 queryString = ?apikey=abcd0987&name=HEROPY 
