@@ -423,7 +423,9 @@ This request has been blocked; the content must be served over HTTPS.
 https://docs.netlify.com/functions/overview/
 
 netlify.toml 파일 생성후 설정한다
-
+```bash
+$ npm i -D netlify-cli
+```
 ```toml
 # Netlify Dev
 # https://cli.netlify.com/netlify-dev#netlifytoml-dev-block
@@ -528,3 +530,44 @@ exports.handler = async function(event){
 //         reject(error.message)
 //       })
 ```
+### store/movie.js _fetchMovie() 수정해 준다
+```js
+store/movie.js에 수정
+
+async function _fetchMovie(payload){
+  return await axios.post('/.netlify/functions/movie',payload)
+}
+```
+## 로컬 및 서버의 환경변수 구성
+중요한 정보 [ex)apikey]를 숨겨주기 위한 설정
+
+### 로컬에서 환경변수 설정
+```
+$ npm i -D dotenv-webpack
+```
+webpack.config.js에 작성
+```js
+const Dotenv = require('dotenv-webpack')
+plugins : [
+    new Dotenv()
+  ]
+```
+
+root 경로에 .env 파일 생성
+```
+.env파일 내부에 키값을 적어 넣는다
+OMDB_API_KEY=f6573a61
+```
+functions/movie.js에 작성
+```js
+const OMDB_API_KEY = process.env.OMDB_API_KEY
+|| 객체 구조분해 해서 간단하게 작성 가능
+const {OMDB_API_KEY} = process.env 
+```
+.gitingore에 .env 추가
+### Netlify 서버에서 환경 설정
+1. Site settings 탭으로 이동
+1. 사이드 Build & deploy 탭 내부의 Enviroment
+1. Edit variables click
+
+
