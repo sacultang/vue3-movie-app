@@ -65,10 +65,10 @@ export default {
           }
         }
       }
-      catch(error){
+      catch({ message }){
         commit('updateState',{
           movies:[],
-          message: error.message
+          message
         })
       }
       finally{

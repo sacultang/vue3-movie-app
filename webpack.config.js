@@ -3,6 +3,7 @@ const path = require('path') //따로 설치 하지 않고 node에서 사용가�
 const HtmlPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
+const Dotenv = require('dotenv-webpack')
 // export
 module.exports = {
   resolve: { // 경로에서 확장자를 따로 명시 하지 않아도 됨
@@ -69,7 +70,8 @@ module.exports = {
         {from:'static'}
       ]
     }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new Dotenv()
   ],
   devServer : {
     host:'localhost'

@@ -444,7 +444,7 @@ netlify.toml 파일 생성후 설정한다
   autoLaunch = false # Netlify 서버가 준비되면 자동으로 브라우저를 오픈할 것인지 지정합니다.
 
 ```
-direcotry/js파일
+### direcotry/js파일
   - body 안에는 문자 데이터만 할당 가능 객체 데이터를 할당 하고 싶다면 JSON.stringify()로 객체를 반환한다 
 ```js 
 // 비동기로 작성해야 정상 작동함
@@ -459,4 +459,72 @@ exports.handler = async function(event, context) {
     })
   }
 }
+```
+### functions/movie
+1. 영화검색요청을 위해 store/movie에 _fetchMovie()를 작성했었다.
+2. _fetchMovie() 안의 로직들을 서버리스 함수쪽으로 이관한다
+    1. 서버리스함수(functions/movie.js)에서 axios 패키지 사용 할 수 있게 해야함
+1. 서버리스 함수는 이미 async 붙어있는 비동기 함수이다
+1. body 부분에는 문자데이터만 반환 가능하다
+1. 서버리스함수를 실행할때 인수로 {title,type,page,year,id}를 얻어 오는 방법
+    1. payload 변수에 event.body정보를 할당한다
+    1. 주의점 event.body는 문자데이터기 때문에 JSON.parse()로 객체 데이터로 변환 해서 할당한다
+
+1. store/movie.js 에서 서버리스함수로 요청이 들어갈수 있도록 수정해준다
+    1. axios.post('/.netlify/functions/movie',payload)
+    - get & post 차이점
+        - get?title={}&page={} 쿼리스트링부분을 포함해서 요청 (즉, 요청하는 주소에 정보를 포함해서 요청)
+        - post body라는 부분에 담아서 전송한다
+
+```js
+functions/movies.js에 작성
+
+const axios = require('axios') // nodeJs 환경이기 때문에 require 로 가져오기 // exports 로 내보내기
+exports.handler = async function(event){
+  // console.log(event)
+  const payload = JSON.parse(event.body) // payload라는 변수로 event.body의 정보를 할당한다
+  const {title,type,page,year,id} = payload
+  const url = id 
+    ? `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${id}` 
+    : `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
+
+  try {
+    const { data } = await axios.get(url)
+    if(data.Error){
+      return {
+        statusCode: 400, // 잘못된 요청 처리에 대한 코드
+        body:data.Error // body는 문자데이터만 반환가능 {},[]는 정상 작동 안함
+      }
+    }
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data)
+    }
+  }
+  catch(error){
+    return {
+      statusCode: error.response.status,
+      body: error.message
+    }
+  }
+}
+//  const {title,type,page,year,id} = payload
+//   const OMDB_API_KEY = 'f6573a61'
+//   const url = id 
+//     ? `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${id}` 
+//     : `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
+//   // const url = `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}`
+
+//   return new Promise((resolve,reject)=>{
+//     axios.get(url)
+//       .then((res)=>{
+//         // console.log(res)
+//         if(res.data.Error){
+//           reject(res.data.Error)
+//         }
+//         resolve(res)
+//       })
+//       .catch((error) => {
+//         reject(error.message)
+//       })
 ```
