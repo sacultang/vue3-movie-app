@@ -418,3 +418,45 @@ This request has been blocked; the content must be served over HTTPS.
 
 1. 일단 omdb 요청 주소에 https로 바꾸고 다시 요청했더니 잘 됨.
 1. omdb주소에 https로 안바꾸고 index.html 에 \<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 태그 추가 해주니 잘 됨
+
+## Netlify Server-side Functions
+https://docs.netlify.com/functions/overview/
+
+netlify.toml 파일 생성후 설정한다
+
+```toml
+# Netlify Dev
+# https://cli.netlify.com/netlify-dev#netlifytoml-dev-block
+
+# 제품 모드
+[build]
+  command = "npm run build"
+  functions = "functions" # Netlify 서버리스 함수가 작성된 디렉토리를 지정합니다.
+  publish = "dist" # 프로젝트 빌드 결과의 디렉토리를 지정합니다.
+
+# 개발 모드
+[dev]
+  framework = "#custom" # 감지할 프로젝트 유형을 지정합니다. 앱 서버 및 'targetPort' 옵션을 실행하는 명령 옵션은
+  command = "npm run dev" # 연결할 프로젝트의 개발 서버를 실행하는 명령(스크립트)을 지정합니다.
+  targetPort = 8080 # 연결할 프로젝트 개발 서버의 포트를 지정합니다.
+  port = 8888 # 출력할 Netlify 서버의 포트를 지정합니다
+  publish = "dist" # 프로젝트의 정적 콘텐츠 디렉토리를 지정합니다.
+  autoLaunch = false # Netlify 서버가 준비되면 자동으로 브라우저를 오픈할 것인지 지정합니다.
+
+```
+direcotry/js파일
+  - body 안에는 문자 데이터만 할당 가능 객체 데이터를 할당 하고 싶다면 JSON.stringify()로 객체를 반환한다 
+```js 
+// 비동기로 작성해야 정상 작동함
+exports.handler = async function(event, context) {
+    // your server-side functionality
+    return {
+    statusCode:200,
+    body: JSON.stringify({
+      name:'Heropy',
+      age:85,
+      email:'sacultang@gmail.com'
+    })
+  }
+}
+```

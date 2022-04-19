@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development ",
+    "dev:netlify": "netlify dev",
     "build": "webpack --mode production"
   },
   "keywords": [],
@@ -24,6 +25,7 @@
     "eslint-plugin-vue": "^8.5.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "netlify-cli": "^9.16.7",
     "postcss": "^8.4.12",
     "postcss-loader": "^6.2.1",
     "sass": "^1.49.10",

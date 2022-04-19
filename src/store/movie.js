@@ -65,10 +65,10 @@ export default {
           }
         }
       }
-      catch(message){
+      catch(error){
         commit('updateState',{
           movies:[],
-          message
+          message: error.message
         })
       }
       finally{
@@ -102,34 +102,44 @@ export default {
   }
 }
 
-function _fetchMovie(payload){
-  const {title,type,page,year,id} = payload
-  const OMDB_API_KEY = 'f6573a61'
-  const url = id 
-    ? `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${id}` 
-    : `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
-  // const url = `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}`
-
-  return new Promise((resolve,reject)=>{
-    axios.get(url)
-      .then((res)=>{
-        // console.log(res)
-        if(res.data.Error){
-          reject(res.data.Error)
-        }
-        resolve(res)
-      })
-      .catch((error) => {
-        reject(error.message)
-      })
-  })
-  // return new Promise(async (res,rej)=>{
-  //   try{
-  //     const result = await axios.get(url)
-  //     res(result)
-  //   }
-  //   catch(err){
-  //     rej('Error Message!!!!!!',err.message)
-  //   }
-  // })
+/* 
+  Netlify로 이관한 코드
+*/
+async function _fetchMovie(payload){
+  return await axios.post('/.netlify/functions/movie',payload)
 }
+
+/*  
+  Netlify 이관 이전 코드
+*/
+// function _fetchMovie(payload){
+//   const {title,type,page,year,id} = payload
+//   const OMDB_API_KEY = 'f6573a61'
+//   const url = id 
+//     ? `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${id}` 
+//     : `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=${page}`
+//   // const url = `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}`
+
+//   return new Promise((resolve,reject)=>{
+//     axios.get(url)
+//       .then((res)=>{
+//         // console.log(res)
+//         if(res.data.Error){
+//           reject(res.data.Error)
+//         }
+//         resolve(res)
+//       })
+//       .catch((error) => {
+//         reject(error.message)
+//       })
+//   })
+//   // return new Promise(async (res,rej)=>{
+//   //   try{
+//   //     const result = await axios.get(url)
+//   //     res(result)
+//   //   }
+//   //   catch(err){
+//   //     rej('Error Message!!!!!!',err.message)
+//   //   }
+//   // })
+// }
