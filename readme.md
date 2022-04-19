@@ -404,3 +404,17 @@ fullPath 부분 =  /blog/123?apikey=abcd0987&name=HEROPY
 fullPath의 parmas = /blog/123
 
 fullPath의 queryString = ?apikey=abcd0987&name=HEROPY 
+
+## Mixed Content issue
+netlify 배포 후 검색요청 했는데 
+```
+This request has been blocked; the content must be served over HTTPS.
+```
+에러 뜸<br>
+
+검색해보니 https로 통신하다가 http로 연결되는 통신이 중간에 발생하면 보안정책에 의해 browser에서 block 된단다.
+
+해결법
+
+1. 일단 omdb 요청 주소에 https로 바꾸고 다시 요청했더니 잘 됨.
+1. omdb주소에 https로 안바꾸고 index.html 에 \<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 태그 추가 해주니 잘 됨
