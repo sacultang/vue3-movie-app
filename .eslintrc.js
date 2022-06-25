@@ -14,7 +14,8 @@ module.exports = {
   ],
   parserOptions: {
     // 코드를 분석할 수 있는 분석기를 지정
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
   },
   rules: {},
+  ecmaVersion: 8,
 };

@@ -1,62 +1,59 @@
 <template>
-  <RouterLink 
+  <RouterLink
     :to="`/movie/${movie.imdbID}`"
     class="movie"
-    :style="{backgroundImage:`url(${movie.Poster})`}"
+    :style="{ backgroundImage: `url(${movie.Poster})` }"
   >
     <Loader v-if="imageLoading" :size="1.5" absolute></Loader>
     <div class="info">
       <div class="year">
-        {{movie.Year}}
+        {{ movie.Year }}
       </div>
       <div class="title">
-        {{movie.Title}}
+        {{ movie.Title }}
       </div>
     </div>
   </RouterLink>
 </template>
 
 <script>
-import Loader from '~/components/Loader'
-export default {
-  components:{
-    Loader
-  },
-  props: {
-    movie: {
-      type:Object,
-      // default: ()=>({})
-      default : ()=>{
-        return {}
-      }
-    }
-  },
-  data(){
-    return {
-      imageLoading:true
-    }
-  },
-  mounted(){
-    this.init()
-  },
-  methods :{
-    async init(){
-      if(!this.movie.Poster || this.movie.Poster === 'N/A'){
-        this.imageLoading = false
-      }
-      else {
-        await this.$loadImage(this.movie.Poster)
-        this.imageLoading = false
-      }
-      
-    }
-  }
-}
+  import Loader from '~/components/Loader';
+  export default {
+    components: {
+      Loader,
+    },
+    props: {
+      movie: {
+        type: Object,
+        // default: ()=>({})
+        default: () => {
+          return {};
+        },
+      },
+    },
+    data() {
+      return {
+        imageLoading: true,
+      };
+    },
+    mounted() {
+      this.init();
+    },
+    methods: {
+      async init() {
+        if (!this.movie.Poster || this.movie.Poster === 'N/A') {
+          this.imageLoading = false;
+        } else {
+          await this.$loadImage(this.movie.Poster);
+          this.imageLoading = false;
+        }
+      },
+    },
+  };
 </script>
 <style lang="scss" scoped>
- 
   .movie {
-    $width:200px;
+    $width: 200px;
     width: $width;
     height: calc($width * 3 / 2);
     background-size: cover;
@@ -67,7 +64,7 @@ export default {
     position: relative;
     &:hover::after {
       border: 6px solid $primary;
-      content: "";
+      content: '';
       top: 0;
       bottom: 0;
       left: 0;
@@ -78,7 +75,7 @@ export default {
       position: absolute;
       left: 0;
       bottom: 0;
-      background-color: rgba($black,.3);
+      background-color: rgba($black, 0.3);
       width: 100%;
       padding: 14px;
       font-size: 14px;
@@ -88,7 +85,7 @@ export default {
         color: $primary;
       }
       .title {
-        color:$white;
+        color: $white;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
